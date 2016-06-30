@@ -34,7 +34,7 @@ myApp.controller('bidsController',function(bidFactory,userFactory,$location,$fil
   }
   self.bid1 = function(bid){
     if (bid.amount > self.max_1 || self.max_1 == null) {
-      self.max_1 = bid;
+      self.max_1 = bid.amount;
       console.log('max1',self.max_1);
       create_bid(bid.amount,1)
     }
@@ -44,7 +44,7 @@ myApp.controller('bidsController',function(bidFactory,userFactory,$location,$fil
   }
   self.bid2 = function(bid){
     if (bid.amount > self.max_2 || self.max_2 == null) {
-      self.max_2 = bid;
+      self.max_2 = bid.amount;
       console.log('max1',self.max_2);
       create_bid(bid.amount,2)
     }
@@ -54,7 +54,7 @@ myApp.controller('bidsController',function(bidFactory,userFactory,$location,$fil
   }
   self.bid3 = function(bid){
     if (bid.amount > self.max_3 || self.max_3 == null) {
-      self.max_3 = bid;
+      self.max_3 = bid.amount;
       console.log('max1',self.max_3);
       create_bid(bid.amount,3)
     }
