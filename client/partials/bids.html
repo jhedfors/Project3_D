@@ -1,0 +1,88 @@
+<div ng-controller="usersController as UC">
+    <a href ng-click="UC.logout()">Logout</a>
+</div>
+<div ng-controller="bidsController as BC">
+  <h4>Bid Now!</h4>
+  <div class="product">
+    <p>
+      Product 1
+    </p>
+    <form name='bid_form1'>
+      <input type="number" name="bid_amount" ng-model="BC.bid1.amount" ng-minlength='1' required placeholder="bid amount">
+      <button ng-click="BC.bid1(BC.bid1)">Bid</button>
+    </form>
+    <!-- <div ng-messages="BC.new_task.title.$error">
+      <p ng-message="required">The question is required.</p>
+      <p ng-message="minlength">Minimum length is 5 characters.</p>
+    </div> -->
+    <p>
+      Current Bids:
+    </p>
+    <div class="bid_box">
+      <p ng-repeat="bid in BC.bids | filter:bid_filter">
+        <span ng-if="bid.product == '1'">
+          {{bid._bidder.name}} {{bid.amount}}
+        </span>
+      </p>
+    </div>
+    <input type="text" ng-model="bid_filter" placeholder=" Search">
+
+  </div>
+  <div class="product">
+    <p>
+      Product 2
+    </p>
+    <form name='bid_form2'>
+      <input type="number" name="bid_amount" ng-model="BC.bid2.amount" ng-minlength='1' required placeholder="bid amount">
+      <button ng-click="BC.bid2(BC.bid2)">Bid</button>
+    </form>
+    <!-- <div ng-messages="BC.new_task.title.$error">
+      <p ng-message="required">The question is required.</p>
+      <p ng-message="minlength">Minimum length is 5 characters.</p>
+    </div> -->
+    <p>
+      Current Bids:
+    </p>
+    <div class="bid_box">
+      <p ng-repeat="bid in BC.bids | filter:bid_filter">
+        <span ng-if="bid.product == '2'">
+          {{bid._bidder.name}} {{bid.amount}}
+        </span>
+      </p>
+    </div>
+    <input type="text" ng-model="bid_filter" placeholder=" Search">
+
+  </div>
+  <div class="product">
+    <p>
+      Product 3
+    </p>
+    <form name='bid_form3'>
+      <input type="number" name="bid_amount" ng-model="BC.bid3.amount" ng-minlength='1' required placeholder="bid amount">
+      <button ng-click="BC.bid3(BC.bid3)">Bid</button>
+    </form>
+    <!-- <div ng-messages="BC.new_task.title.$error">
+      <p ng-message="required">The question is required.</p>
+      <p ng-message="minlength">Minimum length is 5 characters.</p>
+    </div> -->
+    <p>
+      Current Bids:
+    </p>
+    <div class="bid_box">
+      <p ng-repeat="bid in BC.bids | filter:bid_filter">
+        <span ng-if="bid.product == '3'">
+          {{bid._bidder.name}} {{bid.amount}}
+        </span>
+      </p>
+    </div>
+    <input type="text" ng-model="bid_filter" placeholder=" Search">
+
+  </div>
+  <div class="">
+    <button type="button" ng-click="BC.endBid()">End Bid</button>
+  </div>
+
+
+
+
+</div>

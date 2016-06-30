@@ -1,0 +1,6 @@
+<div ng-controller="usersController as UC">
+  <form name='loginForm'>
+    <label>Your Name:</label><input type="text" name="name" ng-model="UC.name">
+    <button ng-click="UC.login()">Login</button>
+  </form>
+</div>

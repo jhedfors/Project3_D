@@ -1,0 +1,59 @@
+<div ng-controller="usersController as UC">
+    <a href ng-click="UC.logout()">Logout</a>
+</div>
+<div ng-controller="resultsController as RC">
+  <h4>{{RC.activeUser.name}} has ended the Bid</h4>
+  <h5>Highest bidder per product</h5>
+  <div class="product">
+    <p>
+      Product 1
+    </p>
+    <p>
+      Current Bids:
+    </p>
+    <div class="bid_box">
+      <p ng-repeat="bid1 in RC.bids ">
+        <span ng-if="bid1.product == '1'">
+          {{bid1._bidder.name}} {{bid1.amount}}
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="product">
+    <p>
+      Product 2
+    </p>
+    <p>
+      Current Bids:
+    </p>
+    <div class="bid_box">
+      <p ng-repeat="bid2 in RC.bids ">
+        <span ng-if="bid2.product == '2'">
+          {{bid2._bidder.name}} {{bid2.amount}}
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="product">
+    <p>
+      Product 3
+    </p>
+    <p>
+      Current Bids:
+    </p>
+    <div class="bid_box">
+      <p ng-repeat="bid3 in RC.bids">
+        <span ng-if="bid3.product == '3'">
+          {{bid3._bidder.name}} {{bid3.amount}}
+        </span>
+      </p>
+    </div>
+  </div>
+  <div class="">
+    <button type="button" ng-click="RC.startBid()">Start Bid</button>
+  </div>
+
+
+
+
+</div>
