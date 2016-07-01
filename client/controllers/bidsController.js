@@ -1,18 +1,9 @@
 myApp.controller('bidsController',function(bidFactory,userFactory,$location,$filter){
   var self = this
-  self.bids = []
-  self.max_1;
-  self.max_2;
-  self.max_3;
-  // self.users = []
   self.activeUser;
-  self.all_bids =[]
-
-
-
-
-
-
+  self.bids_1
+  self.bids_2
+  self.bids_3
   var getActiveUser = function(){
     userFactory.getActiveUser(function(data){
       if (!data) {
@@ -22,134 +13,66 @@ myApp.controller('bidsController',function(bidFactory,userFactory,$location,$fil
     })
   };
   getActiveUser()
-
-  var create_bid = function(bid,product){
-    console.log(bid,product);
-    var bid_info = {_bidder: self.activeUser, product:product, amount:bid}
-    bidFactory.create(bid_info, function(){
-      console.log("create controller");
-      index()
+  var index = function(){
+    self.bids_1 = [{amount:0}]
+    self.bids_2 = [{amount:0}]
+    self.bids_3 = [{amount:0}]
+    bidFactory.index(function(bids_from_factory){
+      for (var i = 0; i < bids_from_factory.length; i++) {
+        if (bids_from_factory[i].product == 1) {
+          self.bids_1.push(bids_from_factory[i])
+        }
+        else if (bids_from_factory[i].product == 2) {
+          self.bids_2.push(bids_from_factory[i])
+        }
+        else {
+          self.bids_3.push(bids_from_factory[i])
+        }
+      }
     })
-
   }
+  index()
   self.bid1 = function(bid){
-    if (bid.amount > self.max_1 || self.max_1 == null) {
-      self.max_1 = bid.amount;
-      console.log('max1',self.max_1);
+    console.log(bid.amount);
+    if (bid.amount > self.bids_1[self.bids_1.length-1].amount) {
       create_bid(bid.amount,1)
+      bid.amount = ''
     }
     else{
       alert('Bid should be higher than the previous bid');
     }
   }
   self.bid2 = function(bid){
-    if (bid.amount > self.max_2 || self.max_2 == null) {
-      self.max_2 = bid.amount;
-      console.log('max1',self.max_2);
+    if (bid.amount > self.bids_2[self.bids_2.length-1].amount) {
       create_bid(bid.amount,2)
+      bid.amount = ''
     }
     else{
       alert('Bid should be higher than the previous bid');
     }
   }
   self.bid3 = function(bid){
-    if (bid.amount > self.max_3 || self.max_3 == null) {
-      self.max_3 = bid.amount;
-      console.log('max1',self.max_3);
+    console.log(self.bids_3[self.bids_3.length-1].amount);
+    if (bid.amount > self.bids_3[self.bids_3.length-1].amount) {
       create_bid(bid.amount,3)
+      bid.amount = ''
     }
     else{
       alert('Bid should be higher than the previous bid');
     }
   }
-  var index = function(){
-    bidFactory.index(function(bids_from_factory){
-      self.bids = bids_from_factory
-      self.bids.sort(function(a, b) {
-          return parseFloat(b.amount) - parseFloat(a.amount);
-      });
-      console.log('self.bids in controller',self.bids);
+  var create_bid = function(bid,product){
+    var bid_info = {_bidder: self.activeUser, product:product, amount:bid}
+    bidFactory.create(bid_info, function(){
+      index()
     })
   }
-  index()
-
-
-  var max_bids = function(){
-    bidFactory.index(function(bids_from_factory){
-      self.all_bids = bids_from_factory
-      self.all_bids.sort(function(a, b) {
-          return parseFloat(b.amount) - parseFloat(a.amount);
-      });
-      var p1 = true
-      var p2 = true
-      var p3 = true
-      for (var i = 0; i < self.all_bids.length; i++) {
-
-        if (self.all_bids[i].product == 1 && p1) {
-          self.max_1 = self.all_bids[i].amount
-          console.log('self.max_1',self.max_1);
-          p1=false
-        }
-        if (self.all_bids[i].product == 2 && p2) {
-          self.max_2 = self.all_bids[i].amount
-
-          console.log('first',self.all_bids[i]);
-          p2=false
-        }
-        if (self.all_bids[i].product == 3 && p3) {
-          self.max_3 = self.all_bids[i].amount
-
-          console.log('first',self.all_bids[i]);
-          p3=false
-        }
-      }
-
-
-      console.log('self.bids in controller',self.all_bids);
-    })
-  }
-  max_bids()
-
-
-
-
-
-
-
-
-
-
   self.endBid = function(){
-    console.log('bid ended');
-    console.log(self.max_1);
-    if (self.max_2 > 0 && self.max_2 > 0 && self.max_3 > 0) {
+    if (self.bids_1.length > 1 && self.bids_2.length > 1 && self.bids_3.length > 1) {
       $location.url('/result')
     }
     else {
       alert('Cannot end the bid. All products must have bids.')
     }
   }
-
-    //
-    // var new_task = {creator: self.activeUser.name,_creator: self.activeUser._id, title: self.title, description: self.description, complete:false, tagged: self.tagged}
-    // taskFactory.create(new_task,function(){
-    //   self.title = ''
-    //   self.description = ''
-    //   self.tagged = ''
-    //   getTasks(self.activeUser._id)
-    // })
-  // var getUsers = function(){
-  //   userFactory.index(function(questions_from_factory){
-  //     self.users = questions_from_factory.filter(function(item) {
-  //         return item.name !== self.activeUser.name;
-  //     })
-  //   })
-  // }
-  // getUsers()
-  // console.log(self.users);
-  // self.toggle = function(id){
-  //   taskFactory.toggle(id,function(){
-  //     getTasks(self.activeUser._id)
-  //   })
-  // }
 })

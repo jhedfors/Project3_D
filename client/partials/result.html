@@ -12,7 +12,7 @@
       Current Bids:
     </p>
     <div class="bid_box">
-      <p ng-repeat="bid1 in RC.bids ">
+      <p ng-repeat="bid1 in RC.bids_1 | limitTo : 2">
         <span ng-if="bid1.product == '1'">
           {{bid1._bidder.name}} {{bid1.amount}}
         </span>
@@ -27,7 +27,7 @@
       Current Bids:
     </p>
     <div class="bid_box">
-      <p ng-repeat="bid2 in RC.bids ">
+      <p ng-repeat="bid2 in RC.bids_2 | limitTo : 2">
         <span ng-if="bid2.product == '2'">
           {{bid2._bidder.name}} {{bid2.amount}}
         </span>
@@ -42,7 +42,7 @@
       Current Bids:
     </p>
     <div class="bid_box">
-      <p ng-repeat="bid3 in RC.bids">
+      <p ng-repeat="bid3 in RC.bids_3 | limitTo : 2">
         <span ng-if="bid3.product == '3'">
           {{bid3._bidder.name}} {{bid3.amount}}
         </span>
@@ -51,6 +51,8 @@
   </div>
   <div class="">
     <button type="button" ng-click="RC.startBid()">Start Bid</button>
+    <a href="#/bids"><button>Cancel</button></a>
+
   </div>
 
 

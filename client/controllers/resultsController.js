@@ -1,10 +1,9 @@
 myApp.controller('resultsController',function(bidFactory,userFactory,$location,$filter){
   var self = this
-  self.all_bids = []
-  self.bids = []
-  self.limit =1
-  // self.users = []
   self.activeUser;
+  self.bids_1
+  self.bids_2
+  self.bids_3
   var getActiveUser = function(){
     userFactory.getActiveUser(function(data){
       if (!data) {
@@ -15,48 +14,32 @@ myApp.controller('resultsController',function(bidFactory,userFactory,$location,$
     console.log(self.activeUser);
   };
   getActiveUser()
-
   var index = function(){
+    self.bids_1 = [{amount:0}]
+    self.bids_2 = [{amount:0}]
+    self.bids_3 = [{amount:0}]
     bidFactory.index(function(bids_from_factory){
-      self.all_bids = bids_from_factory
-      self.all_bids.sort(function(a, b) {
+      bids_from_factory.sort(function(a, b) {
           return parseFloat(b.amount) - parseFloat(a.amount);
       });
-      var p1 = true
-      var p2 = true
-      var p3 = true
-      for (var i = 0; i < self.all_bids.length; i++) {
-
-        if (self.all_bids[i].product == 1 && p1) {
-          self.bids.push(self.all_bids[i])
-          console.log('first',self.all_bids[i]);
-          p1=false
+      for (var i = 0; i < bids_from_factory.length; i++) {
+        if (bids_from_factory[i].product == 1) {
+          self.bids_1.push(bids_from_factory[i])
         }
-        if (self.all_bids[i].product == 2 && p2) {
-          self.bids.push(self.all_bids[i])
-
-          console.log('first',self.all_bids[i]);
-          p2=false
+        else if (bids_from_factory[i].product == 2) {
+          self.bids_2.push(bids_from_factory[i])
         }
-        if (self.all_bids[i].product == 3 && p3) {
-          self.bids.push(self.all_bids[i])
-
-          console.log('first',self.all_bids[i]);
-          p3=false
+        else {
+          self.bids_3.push(bids_from_factory[i])
         }
       }
-
-
-      console.log('self.bids in controller',self.all_bids);
     })
   }
   index()
-
   self.startBid = function(){
     console.log('start new bid');
     bidFactory.reset(function(){
       $location.url('/bids')
-
     })
   }
 })

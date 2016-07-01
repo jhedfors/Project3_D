@@ -21,17 +21,5 @@ myApp.factory('bidFactory', function($http,$location){
         callback()
       })
   }
-  // factory.show = function(id,callback){
-  //   console.log('id in factory', id);
-  //   $http.get("/user/"+ id).success(function(data_from_db){
-  //     callback(data_from_db)
-  //   })
-  // }
-  // factory.toggle = function(id,callback){
-  //   console.log('toggle in factory', id);
-  //   $http.post('/complete/'+id).success(function(data){
-  //     callback()
-  //   })
-  // }
   return factory
 })
